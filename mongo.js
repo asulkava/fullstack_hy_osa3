@@ -19,14 +19,12 @@ const personSchema = new mongoose.Schema({
 const Person = mongoose.model('Person', personSchema)
 
 if(process.argv.length === 3){
-  console.log("phonebook:")
   Person.find({}).then(result => {
     result.forEach(person => {
       console.log(`${person.name} ${person.number}`)
     })
     mongoose.connection.close()
   })
-  
 }
 
 else if(process.argv.length === 5){
@@ -34,7 +32,7 @@ else if(process.argv.length === 5){
     name : process.argv[3],
     number : process.argv[4]
   })
-  newPerson.save().then(res => {
+  newPerson.save().then(() => {
     console.log(`added ${newPerson.name} number ${newPerson.number} to phonebook`)
     mongoose.connection.close()
   })
@@ -42,5 +40,5 @@ else if(process.argv.length === 5){
 }
 
 else{
-  console.log("incorrect amount of arguments")
+  console.log('incorrect amount of arguments')
 }
